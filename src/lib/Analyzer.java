@@ -6,16 +6,16 @@ import java.awt.Color;
 import javax.imageio.ImageIO;
 
 public class Analyzer {
-  public static void run(BufferedImage image, int imageSensitivity, Color imageBaseColor, Color highlightColor)
-      throws Exception {
+  public static BufferedImage run(BufferedImage image, int imageSensitivity, Color imageBaseColor,
+      Color highlightColor) {
     var imageAnalyzer = new ImageAnalyzer(imageSensitivity, imageBaseColor, highlightColor);
-
     var highlightedImage = imageAnalyzer.highlightBaseColor(image);
-    var percentageOfBaseColor = imageAnalyzer.getPercentageOfBaseColor(image);
 
-    System.out.printf("Percentage of selected color: %.2f%s\n", percentageOfBaseColor, "%");
+    return highlightedImage;
+  }
 
-    var outputFile = new File("images/analyzed_image.jpg");
-    ImageIO.write(highlightedImage, "jpg", outputFile);
+  public static void saveImage(BufferedImage image, String filename) throws Exception {
+    var outputFile = new File(filename);
+    ImageIO.write(image, "jpg", outputFile);
   }
 }
